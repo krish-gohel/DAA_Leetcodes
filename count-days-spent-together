@@ -1,0 +1,29 @@
+class Solution:
+    def countDaysTogether(self, arriveAlice: str, leaveAlice: str, arriveBob: str, leaveBob: str) -> int:
+        # Days in each month for a non-leap year
+        days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+
+        def date_to_day_of_year(date: str) -> int:
+            month, day = map(int, date.split('-'))
+            return sum(days_in_month[:month-1]) + day
+
+        # Convert all dates to day of the year
+        arriveAliceDay = date_to_day_of_year(arriveAlice)
+        leaveAliceDay = date_to_day_of_year(leaveAlice)
+        arriveBobDay = date_to_day_of_year(arriveBob)
+        leaveBobDay = date_to_day_of_year(leaveBob)
+
+        # Find the overlapping period
+        start_overlap = max(arriveAliceDay, arriveBobDay)
+        end_overlap = min(leaveAliceDay, leaveBobDay)
+
+        # Calculate the number of overlapping days
+        if start_overlap <= end_overlap:
+            return end_overlap - start_overlap + 1
+        else:
+            return 0
+
+# Example usage
+solution = Solution()
+
+print(solution.countDaysTogether("08-15", "08-18", "08-16", "08-19"))  # Output: 3

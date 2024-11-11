@@ -1,0 +1,87 @@
+import java.util.Arrays;
+import java.util.Random;
+import java.util.Scanner;
+
+public class SearchAndSort {
+
+    // Sequential Search
+    public static int sequentialSearch(int[] arr, int key) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == key) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    // Binary Search
+    public static int binarySearch(int[] arr, int key) {
+        int left = 0, right = arr.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (arr[mid] == key) {
+                return mid;
+            } else if (arr[mid] < key) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return -1;
+    }
+
+    // Analyze search case
+    public static String analyzeSearchCase(int index, int arrayLength) {
+        if (index == 0) {
+            return "Best Case: Key is at the first position.";
+        } else if (index == arrayLength - 1) {
+            return "Worst Case: Key is at the last position.";
+        } else if (index > 0 && index < arrayLength - 1) {
+            return "Average Case: Key is neither at the first nor at the last position.";
+        } else {
+            return "Key not found.";
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Random rand = new Random();
+
+        // Generate a random array of 10 numbers
+        int[] arr = new int[10];
+        for (int i = 0; i < 10; i++) {
+            arr[i] = rand.nextInt(100) + 1;
+        }
+        System.out.println("Generated array: " + Arrays.toString(arr));
+
+        // Ask the user for the key to search
+        System.out.print("Enter the number to search for: ");
+        int key = sc.nextInt();
+
+        // Ask the user for the search type
+        System.out.print("Choose search type (sequential/binary): ");
+        String searchType = sc.next();
+
+        int index = -1;
+        switch (searchType) {
+            case "sequential":
+                // Sequential Search
+                index = sequentialSearch(arr, key);
+                System.out.println("Sequential Search: Element found at index " + index);
+                System.out.println(analyzeSearchCase(index, arr.length));
+                break;
+            case "binary":
+                // Binary Search
+                // Note: Binary search requires the array to be sorted
+                Arrays.sort(arr);
+                System.out.println("Sorted array for binary search: " + Arrays.toString(arr));
+                index = binarySearch(arr, key);
+                System.out.println("Binary Search: Element found at index " + index);
+                System.out.println(analyzeSearchCase(index, arr.length));
+                break;
+            default:
+                System.out.println("Invalid search type.");
+                break;
+        }
+    }
+}

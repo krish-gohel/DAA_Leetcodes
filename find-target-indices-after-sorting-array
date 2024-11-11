@@ -1,0 +1,23 @@
+class Solution:
+    def targetIndices(self, nums, target):
+        # Step 1: Sort the array
+        sorted_nums = sorted(nums)
+        
+        # Step 2: Find the indices of the target element
+        result = [i for i, num in enumerate(sorted_nums) if num == target]
+        
+        return result
+
+# Example usage
+solution = Solution()
+nums1 = [1, 2, 5, 2, 3]
+target1 = 2
+print(solution.targetIndices(nums1, target1))  # Output: [1, 2]
+
+nums2 = [1, 2, 5, 2, 3]
+target2 = 3
+print(solution.targetIndices(nums2, target2))  # Output: [3]
+
+nums3 = [1, 2, 5, 2, 3]
+target3 = 5
+print(solution.targetIndices(nums3, target3))  # Output: [4]

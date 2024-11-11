@@ -1,0 +1,23 @@
+class Solution:
+    def sortPeople(self, names, heights):
+        # Combine names and heights into a list of tuples
+        combined = list(zip(names, heights))
+        
+        # Sort the list of tuples by height in descending order
+        combined.sort(key=lambda x: x[1], reverse=True)
+        
+        # Extract the sorted names
+        sorted_names = [name for name, height in combined]
+        
+        return sorted_names
+
+# Example usage
+solution = Solution()
+
+names1 = ["Mary", "John", "Emma"]
+heights1 = [180, 165, 170]
+print(solution.sortPeople(names1, heights1))  # Output: ["Mary", "Emma", "John"]
+
+names2 = ["Alice", "Bob", "Bob"]
+heights2 = [155, 185, 150]
+print(solution.sortPeople(names2, heights2))  # Output: ["Bob", "Alice", "Bob"]

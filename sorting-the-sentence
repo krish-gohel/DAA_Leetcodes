@@ -1,0 +1,32 @@
+class Solution:
+    def sortSentence(self, s: str) -> str:
+        # Split the shuffled sentence into words
+        words = s.split()
+        
+        # Initialize a list to store the words in their correct positions
+        original_words = [None] * len(words)
+        
+        # Process each word to extract the original word and its position
+        for word in words:
+            # Find the position where digits start
+            for i in range(len(word)):
+                if word[i].isdigit():
+                    break
+            
+            # Extract the position and the word
+            position = int(word[i:]) - 1  # Convert to 0-indexed
+            actual_word = word[:i]
+            
+            # Place the word in its correct position
+            original_words[position] = actual_word
+        
+        # Join the words to form the original sentence
+        original_sentence = ' '.join(original_words)
+        
+        return original_sentence
+
+# Example usage
+shuffled_sentence = "sentence4 a3 is2 This1"
+solution = Solution()
+original_sentence = solution.sortSentence(shuffled_sentence)
+print(original_sentence)  # Output: "This is a sentence"
